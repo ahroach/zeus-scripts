@@ -6,6 +6,7 @@ import getopt
 
 import scipy
 import tables
+import numpy
 
 #z2d is used to read hydro datafiles from ZEUS-2D
 def z2d(filename):
@@ -59,17 +60,17 @@ def z2d(filename):
 
 
     #Calculate angular momentum
-    l = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    l = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(l.shape[0]):
         for j in range(l.shape[1]):
             l[i,j]=vtheta[i,j]*r[i]
 
     #Calculate angular velocity
-    rinv = zeros(r.shape[0],dtype=float32)
+    rinv = numpy.zeros(r.shape[0],dtype=numpy.float32)
     for i in range(rinv.shape[0]):
         rinv[i]=1.0/r[i]
     
-    omega = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    omega = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(omega.shape[0]):
         for j in range(omega.shape[1]):
             omega[i,j]=vtheta[i,j]*rinv[i]
@@ -144,17 +145,17 @@ def zmp(filename):
 
 
     #Calculate angular momentum
-    l = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    l = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(l.shape[0]):
         for j in range(l.shape[1]):
             l[i,j]=vtheta[i,j]*r[i]
 
     #Calculate angular velocity
-    rinv = zeros(r.shape[0],dtype=float32)
+    rinv = numpy.zeros(r.shape[0],dtype=numpy.float32)
     for i in range(rinv.shape[0]):
         rinv[i]=1.0/r[i]
     
-    omega = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    omega = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(omega.shape[0]):
         for j in range(omega.shape[1]):
             omega[i,j]=vtheta[i,j]*rinv[i]
@@ -234,17 +235,17 @@ def zmpnobc(filename):
           bz[i,j]=0.5*(bztemp[0,i+8,j+1]+bztemp[0,i+8,j+2])
 
     #Calculate angular momentum - copy vr first to get shape right
-    l = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    l = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(l.shape[0]):
         for j in range(l.shape[1]):
             l[i,j]=vtheta[i,j]*r[i]
 
     #Calculate angular velocity
-    rinv = zeros(r.shape[0],dtype=float32)
+    rinv = numpy.zeros(r.shape[0],dtype=numpy.float32)
     for i in range(rinv.shape[0]):
         rinv[i]=1.0/r[i]
     
-    omega = zeros((vtheta.shape[0],vtheta.shape[1]),dtype=float32)
+    omega = numpy.zeros((vtheta.shape[0],vtheta.shape[1]),dtype=numpy.float32)
     for i in range(omega.shape[0]):
         for j in range(omega.shape[1]):
             omega[i,j]=vtheta[i,j]*rinv[i]
