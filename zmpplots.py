@@ -423,11 +423,16 @@ def generatejr(filename, nobc=0):
     dz = data['z'][10]-data['z'][9]
 
     #Keep in mind that 'i' is the r coordinate, and 'j' is the z coordinate
+    #We're going to calculate jr in amps/cm^2. B_theta is in gauss.
+    #jr in statamps/cm^2 will require multiplying by c/4pi. The converstion
+    #to amps will require dividing by 2.9979e9. So the total conversion
+    #factor is 10/(4*pi)
     for i in range(jr.shape[0]):
         for j in range(1,jr.shape[1]-1):
             jr[i,j] = -(data['btheta'][i,j+1]-data['btheta'][i,j-1])/(2*dz)
         jr[i,0] = -(data['btheta'][i,1] - data['btheta'][i,0])/dz
-    
+
+    jr = jr*10.0/(4.0*numpy.pi)
     return jr
 
 
@@ -445,6 +450,10 @@ def generatejz(filename, nobc=0):
     r = data['r']
 
     #Keep in mind that 'i' is the r coordinate, and 'j' is the z coordinate
+    #We're going to calculate jz in amps/cm^2. B_theta is in gauss.
+    #jr in statamps/cm^2 will require multiplying by c/4pi. The converstion
+    #to amps will require dividing by 2.9979e9. So the total conversion
+    #factor is 10/(4*pi)
     #Jz = (1/r)(d/dr)(rB_theta)
     for i in range(1,jz.shape[0]-1):
         for j in range(jz.shape[1]):
@@ -454,6 +463,7 @@ def generatejz(filename, nobc=0):
     #    jz[0,j] = (1/r[0])*btheta[0,j] + (btheta[1,j]-btheta[0,j])/(r[1]-r[0])
 
 
+    jz = jz*10.0/(4.0*numpy.pi)
     return jz
 
           
